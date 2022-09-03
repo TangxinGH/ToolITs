@@ -2,11 +2,16 @@
 using System.Data;
 using Microsoft.VisualBasic.ApplicationServices;
 using System.Net;
+using System.Collections;
 
 namespace ToolITs
 {
     public partial class Form1 : Form
     {
+        List<string> history_sql = new List<string>();
+        int history_current = -1;
+        List<string> history_tranfer = new List<string>();
+        int tranfer_current = -1;
 
         public Form1()
         {
@@ -45,6 +50,8 @@ namespace ToolITs
         private void button3_Click(object sender, EventArgs e)
         {
             string sql = textBox2.Text;
+            history_sql.Add(sql);
+
             DbConnect dbConnect;
             if (string.IsNullOrWhiteSpace(comboBox1.Text))
             {
@@ -207,7 +214,57 @@ namespace ToolITs
 
         private void button10_Click(object sender, EventArgs e)
         {
+            if (history_sql.Count > 0)
+            {
+                if (history_current + 1 < history_sql.Count)
+                {
+                    history_current += 1;
+                    textBox2.Text = history_sql[history_current].ToString();
+                }
+            }
+        }
 
+        private void button9_Click(object sender, EventArgs e)
+        {
+            if (history_sql.Count>0)
+            {
+                if (history_current>1)
+                {
+                    history_current -= 1;
+                    textBox2.Text = history_sql[history_current].ToString();
+                }
+            }
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            if (history_tranfer.Count > 0)
+            {
+                if (tranfer_current > 1)
+                {
+                    tranfer_current -= 1;
+                    textBox1.Text = history_tranfer[tranfer_current].ToString();
+                }
+            }
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            string data = textBox1.Text;
+            history_tranfer.Add(data);
+
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            if (history_tranfer.Count > 0)
+            {
+                if (tranfer_current + 1 < history_tranfer.Count)
+                {
+                    tranfer_current += 1;
+                    textBox1.Text = history_tranfer[tranfer_current].ToString();
+                }
+            }
         }
     }
 }
