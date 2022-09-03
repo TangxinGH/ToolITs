@@ -92,10 +92,10 @@ namespace  ToolITs.db
                 Commit();
                 return result;
             }
-            catch (Exception ex)
+            catch (Exception  )
             {
                 Rollback();
-                throw ex;
+                throw  ;
             }
             finally
             {
@@ -109,19 +109,21 @@ namespace  ToolITs.db
             OracleCommand command = new OracleCommand();
             try
             {
+                int impact = 0;
                 command.Connection = _connection;
                 Begin();
                 foreach (string sql in SqlList)
                 {
                     command.CommandText = sql;
-                    command.ExecuteNonQuery();
+                    int v = command.ExecuteNonQuery();
+                    impact += v;
                 }
                 Commit();
             }
-            catch (Exception ex)
+            catch (Exception  )
             {
                 Rollback();
-                throw ex;
+                throw;
             }
             finally
             {
