@@ -34,6 +34,10 @@
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label18 = new System.Windows.Forms.Label();
+            this.comboBox14 = new System.Windows.Forms.ComboBox();
+            this.label17 = new System.Windows.Forms.Label();
+            this.comboBox13 = new System.Windows.Forms.ComboBox();
             this.button8 = new System.Windows.Forms.Button();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -78,10 +82,8 @@
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.secondToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.otherToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.comboBox13 = new System.Windows.Forms.ComboBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.comboBox14 = new System.Windows.Forms.ComboBox();
+            this.button9 = new System.Windows.Forms.Button();
+            this.button10 = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -136,6 +138,8 @@
             // 
             // textBox1
             // 
+            this.textBox1.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.textBox1.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.HistoryList;
             this.textBox1.Location = new System.Drawing.Point(65, 31);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
@@ -145,6 +149,8 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button10);
+            this.tabPage2.Controls.Add(this.button9);
             this.tabPage2.Controls.Add(this.label18);
             this.tabPage2.Controls.Add(this.comboBox14);
             this.tabPage2.Controls.Add(this.label17);
@@ -180,6 +186,46 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "hadling";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(742, 172);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(46, 15);
+            this.label18.TabIndex = 27;
+            this.label18.Text = "service:";
+            // 
+            // comboBox14
+            // 
+            this.comboBox14.FormattingEnabled = true;
+            this.comboBox14.Items.AddRange(new object[] {
+            "xe",
+            "orcl"});
+            this.comboBox14.Location = new System.Drawing.Point(792, 169);
+            this.comboBox14.Name = "comboBox14";
+            this.comboBox14.Size = new System.Drawing.Size(121, 23);
+            this.comboBox14.TabIndex = 26;
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(481, 9);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(46, 15);
+            this.label17.TabIndex = 25;
+            this.label17.Text = "service:";
+            // 
+            // comboBox13
+            // 
+            this.comboBox13.FormattingEnabled = true;
+            this.comboBox13.Items.AddRange(new object[] {
+            "xe",
+            "orcl"});
+            this.comboBox13.Location = new System.Drawing.Point(531, 6);
+            this.comboBox13.Name = "comboBox13";
+            this.comboBox13.Size = new System.Drawing.Size(121, 23);
+            this.comboBox13.TabIndex = 24;
             // 
             // button8
             // 
@@ -356,6 +402,8 @@
             // 
             // textBox5
             // 
+            this.textBox5.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.textBox5.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllUrl;
             this.textBox5.Location = new System.Drawing.Point(29, 220);
             this.textBox5.Multiline = true;
             this.textBox5.Name = "textBox5";
@@ -406,6 +454,8 @@
             // 
             // textBox2
             // 
+            this.textBox2.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Suggest;
+            this.textBox2.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.AllUrl;
             this.textBox2.Location = new System.Drawing.Point(29, 67);
             this.textBox2.Multiline = true;
             this.textBox2.Name = "textBox2";
@@ -617,45 +667,24 @@
             this.otherToolStripMenuItem.Text = "other";
             this.otherToolStripMenuItem.Click += new System.EventHandler(this.otherToolStripMenuItem_Click);
             // 
-            // comboBox13
+            // button9
             // 
-            this.comboBox13.FormattingEnabled = true;
-            this.comboBox13.Items.AddRange(new object[] {
-            "xe",
-            "orcl"});
-            this.comboBox13.Location = new System.Drawing.Point(531, 6);
-            this.comboBox13.Name = "comboBox13";
-            this.comboBox13.Size = new System.Drawing.Size(121, 23);
-            this.comboBox13.TabIndex = 24;
+            this.button9.Location = new System.Drawing.Point(771, 21);
+            this.button9.Name = "button9";
+            this.button9.Size = new System.Drawing.Size(75, 23);
+            this.button9.TabIndex = 28;
+            this.button9.Text = "pre";
+            this.button9.UseVisualStyleBackColor = true;
             // 
-            // label17
+            // button10
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(481, 9);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(46, 15);
-            this.label17.TabIndex = 25;
-            this.label17.Text = "service:";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(742, 172);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(46, 15);
-            this.label18.TabIndex = 27;
-            this.label18.Text = "service:";
-            // 
-            // comboBox14
-            // 
-            this.comboBox14.FormattingEnabled = true;
-            this.comboBox14.Items.AddRange(new object[] {
-            "xe",
-            "orcl"});
-            this.comboBox14.Location = new System.Drawing.Point(792, 169);
-            this.comboBox14.Name = "comboBox14";
-            this.comboBox14.Size = new System.Drawing.Size(121, 23);
-            this.comboBox14.TabIndex = 26;
+            this.button10.Location = new System.Drawing.Point(867, 21);
+            this.button10.Name = "button10";
+            this.button10.Size = new System.Drawing.Size(75, 23);
+            this.button10.TabIndex = 29;
+            this.button10.Text = "next";
+            this.button10.UseVisualStyleBackColor = true;
+            this.button10.Click += new System.EventHandler(this.button10_Click);
             // 
             // Form1
             // 
@@ -738,5 +767,7 @@
         private ComboBox comboBox13;
         private Label label18;
         private ComboBox comboBox14;
+        private Button button10;
+        private Button button9;
     }
 }
