@@ -36,28 +36,12 @@
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.button10 = new System.Windows.Forms.Button();
-            this.button9 = new System.Windows.Forms.Button();
+            this.comboBoxFromTns = new System.Windows.Forms.ComboBox();
+            this.button_hadling_next = new System.Windows.Forms.Button();
+            this.button_hadle_pre = new System.Windows.Forms.Button();
             this.label18 = new System.Windows.Forms.Label();
-            this.comboBox14 = new System.Windows.Forms.ComboBox();
-            this.label17 = new System.Windows.Forms.Label();
-            this.comboBox13 = new System.Windows.Forms.ComboBox();
+            this.comboBoxToTns = new System.Windows.Forms.ComboBox();
             this.button8 = new System.Windows.Forms.Button();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.comboBox9 = new System.Windows.Forms.ComboBox();
-            this.comboBox10 = new System.Windows.Forms.ComboBox();
-            this.comboBox11 = new System.Windows.Forms.ComboBox();
-            this.comboBox12 = new System.Windows.Forms.ComboBox();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.comboBox8 = new System.Windows.Forms.ComboBox();
-            this.comboBox7 = new System.Windows.Forms.ComboBox();
-            this.comboBox6 = new System.Windows.Forms.ComboBox();
-            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.label9 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox5 = new System.Windows.Forms.TextBox();
@@ -174,28 +158,12 @@
             // 
             // tabPage2
             // 
-            this.tabPage2.Controls.Add(this.button10);
-            this.tabPage2.Controls.Add(this.button9);
+            this.tabPage2.Controls.Add(this.comboBoxFromTns);
+            this.tabPage2.Controls.Add(this.button_hadling_next);
+            this.tabPage2.Controls.Add(this.button_hadle_pre);
             this.tabPage2.Controls.Add(this.label18);
-            this.tabPage2.Controls.Add(this.comboBox14);
-            this.tabPage2.Controls.Add(this.label17);
-            this.tabPage2.Controls.Add(this.comboBox13);
+            this.tabPage2.Controls.Add(this.comboBoxToTns);
             this.tabPage2.Controls.Add(this.button8);
-            this.tabPage2.Controls.Add(this.label13);
-            this.tabPage2.Controls.Add(this.label14);
-            this.tabPage2.Controls.Add(this.label15);
-            this.tabPage2.Controls.Add(this.comboBox9);
-            this.tabPage2.Controls.Add(this.comboBox10);
-            this.tabPage2.Controls.Add(this.comboBox11);
-            this.tabPage2.Controls.Add(this.comboBox12);
-            this.tabPage2.Controls.Add(this.label16);
-            this.tabPage2.Controls.Add(this.label12);
-            this.tabPage2.Controls.Add(this.label11);
-            this.tabPage2.Controls.Add(this.label10);
-            this.tabPage2.Controls.Add(this.comboBox8);
-            this.tabPage2.Controls.Add(this.comboBox7);
-            this.tabPage2.Controls.Add(this.comboBox6);
-            this.tabPage2.Controls.Add(this.comboBox2);
             this.tabPage2.Controls.Add(this.label9);
             this.tabPage2.Controls.Add(this.label3);
             this.tabPage2.Controls.Add(this.textBox5);
@@ -212,65 +180,56 @@
             this.tabPage2.Text = "hadling";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
-            // button10
+            // comboBoxFromTns
             // 
-            this.button10.Location = new System.Drawing.Point(867, 21);
-            this.button10.Name = "button10";
-            this.button10.Size = new System.Drawing.Size(75, 23);
-            this.button10.TabIndex = 29;
-            this.button10.Text = "next";
-            this.button10.UseVisualStyleBackColor = true;
-            this.button10.Click += new System.EventHandler(this.button10_Click);
+            this.comboBoxFromTns.FormattingEnabled = true;
+            this.comboBoxFromTns.Location = new System.Drawing.Point(164, 21);
+            this.comboBoxFromTns.Name = "comboBoxFromTns";
+            this.comboBoxFromTns.Size = new System.Drawing.Size(121, 23);
+            this.comboBoxFromTns.TabIndex = 30;
+            this.comboBoxFromTns.SelectedIndexChanged += new System.EventHandler(this.comboBox15_SelectedIndexChanged);
             // 
-            // button9
+            // button_hadling_next
             // 
-            this.button9.Location = new System.Drawing.Point(771, 21);
-            this.button9.Name = "button9";
-            this.button9.Size = new System.Drawing.Size(75, 23);
-            this.button9.TabIndex = 28;
-            this.button9.Text = "pre";
-            this.button9.UseVisualStyleBackColor = true;
-            this.button9.Click += new System.EventHandler(this.button9_Click);
+            this.button_hadling_next.Location = new System.Drawing.Point(867, 21);
+            this.button_hadling_next.Name = "button_hadling_next";
+            this.button_hadling_next.Size = new System.Drawing.Size(75, 23);
+            this.button_hadling_next.TabIndex = 29;
+            this.button_hadling_next.Text = "next";
+            this.button_hadling_next.UseVisualStyleBackColor = true;
+            this.button_hadling_next.Click += new System.EventHandler(this.button_hadling_next_Click);
+            // 
+            // button_hadle_pre
+            // 
+            this.button_hadle_pre.Location = new System.Drawing.Point(771, 21);
+            this.button_hadle_pre.Name = "button_hadle_pre";
+            this.button_hadle_pre.Size = new System.Drawing.Size(75, 23);
+            this.button_hadle_pre.TabIndex = 28;
+            this.button_hadle_pre.Text = "pre";
+            this.button_hadle_pre.UseVisualStyleBackColor = true;
+            this.button_hadle_pre.Click += new System.EventHandler(this.button_hadle_pre_click);
             // 
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(742, 172);
+            this.label18.Location = new System.Drawing.Point(409, 181);
             this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(46, 15);
+            this.label18.Size = new System.Drawing.Size(50, 15);
             this.label18.TabIndex = 27;
-            this.label18.Text = "service:";
+            this.label18.Text = "connstr:";
             // 
-            // comboBox14
+            // comboBoxToTns
             // 
-            this.comboBox14.FormattingEnabled = true;
-            this.comboBox14.Items.AddRange(new object[] {
+            this.comboBoxToTns.FormattingEnabled = true;
+            this.comboBoxToTns.Items.AddRange(new object[] {
             "xe",
+            "thaws",
+            "PHBWS",
             "orcl"});
-            this.comboBox14.Location = new System.Drawing.Point(792, 169);
-            this.comboBox14.Name = "comboBox14";
-            this.comboBox14.Size = new System.Drawing.Size(121, 23);
-            this.comboBox14.TabIndex = 26;
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(481, 9);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(46, 15);
-            this.label17.TabIndex = 25;
-            this.label17.Text = "service:";
-            // 
-            // comboBox13
-            // 
-            this.comboBox13.FormattingEnabled = true;
-            this.comboBox13.Items.AddRange(new object[] {
-            "xe",
-            "orcl"});
-            this.comboBox13.Location = new System.Drawing.Point(531, 6);
-            this.comboBox13.Name = "comboBox13";
-            this.comboBox13.Size = new System.Drawing.Size(121, 23);
-            this.comboBox13.TabIndex = 24;
+            this.comboBoxToTns.Location = new System.Drawing.Point(472, 178);
+            this.comboBoxToTns.Name = "comboBoxToTns";
+            this.comboBoxToTns.Size = new System.Drawing.Size(121, 23);
+            this.comboBoxToTns.TabIndex = 26;
             // 
             // button8
             // 
@@ -280,160 +239,16 @@
             this.button8.TabIndex = 23;
             this.button8.Text = "Migration";
             this.button8.UseVisualStyleBackColor = true;
-            this.button8.Click += new System.EventHandler(this.button8_Click);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(568, 201);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(33, 15);
-            this.label13.TabIndex = 22;
-            this.label13.Text = "pass:";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(568, 178);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(32, 15);
-            this.label14.TabIndex = 21;
-            this.label14.Text = "user:";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(375, 198);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(32, 15);
-            this.label15.TabIndex = 20;
-            this.label15.Text = "port:";
-            this.label15.Click += new System.EventHandler(this.label15_Click);
-            // 
-            // comboBox9
-            // 
-            this.comboBox9.FormattingEnabled = true;
-            this.comboBox9.Items.AddRange(new object[] {
-            "123456"});
-            this.comboBox9.Location = new System.Drawing.Point(606, 194);
-            this.comboBox9.Name = "comboBox9";
-            this.comboBox9.Size = new System.Drawing.Size(121, 23);
-            this.comboBox9.TabIndex = 19;
-            // 
-            // comboBox10
-            // 
-            this.comboBox10.FormattingEnabled = true;
-            this.comboBox10.Items.AddRange(new object[] {
-            "OT"});
-            this.comboBox10.Location = new System.Drawing.Point(606, 170);
-            this.comboBox10.Name = "comboBox10";
-            this.comboBox10.Size = new System.Drawing.Size(121, 23);
-            this.comboBox10.TabIndex = 18;
-            // 
-            // comboBox11
-            // 
-            this.comboBox11.FormattingEnabled = true;
-            this.comboBox11.Items.AddRange(new object[] {
-            "49161"});
-            this.comboBox11.Location = new System.Drawing.Point(413, 195);
-            this.comboBox11.Name = "comboBox11";
-            this.comboBox11.Size = new System.Drawing.Size(121, 23);
-            this.comboBox11.TabIndex = 17;
-            // 
-            // comboBox12
-            // 
-            this.comboBox12.FormattingEnabled = true;
-            this.comboBox12.Items.AddRange(new object[] {
-            "127.0.0.1"});
-            this.comboBox12.Location = new System.Drawing.Point(413, 170);
-            this.comboBox12.Name = "comboBox12";
-            this.comboBox12.Size = new System.Drawing.Size(121, 23);
-            this.comboBox12.TabIndex = 16;
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(387, 176);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(20, 15);
-            this.label16.TabIndex = 15;
-            this.label16.Text = "ip:";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(310, 41);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(33, 15);
-            this.label12.TabIndex = 14;
-            this.label12.Text = "pass:";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(311, 9);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(32, 15);
-            this.label11.TabIndex = 13;
-            this.label11.Text = "user:";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(128, 42);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(32, 15);
-            this.label10.TabIndex = 12;
-            this.label10.Text = "port:";
-            // 
-            // comboBox8
-            // 
-            this.comboBox8.FormattingEnabled = true;
-            this.comboBox8.Items.AddRange(new object[] {
-            "123456"});
-            this.comboBox8.Location = new System.Drawing.Point(349, 38);
-            this.comboBox8.Name = "comboBox8";
-            this.comboBox8.Size = new System.Drawing.Size(121, 23);
-            this.comboBox8.TabIndex = 11;
-            // 
-            // comboBox7
-            // 
-            this.comboBox7.FormattingEnabled = true;
-            this.comboBox7.Items.AddRange(new object[] {
-            "OT"});
-            this.comboBox7.Location = new System.Drawing.Point(349, 6);
-            this.comboBox7.Name = "comboBox7";
-            this.comboBox7.Size = new System.Drawing.Size(121, 23);
-            this.comboBox7.TabIndex = 10;
-            // 
-            // comboBox6
-            // 
-            this.comboBox6.FormattingEnabled = true;
-            this.comboBox6.Items.AddRange(new object[] {
-            "49161"});
-            this.comboBox6.Location = new System.Drawing.Point(164, 38);
-            this.comboBox6.Name = "comboBox6";
-            this.comboBox6.Size = new System.Drawing.Size(121, 23);
-            this.comboBox6.TabIndex = 9;
-            // 
-            // comboBox2
-            // 
-            this.comboBox2.FormattingEnabled = true;
-            this.comboBox2.Items.AddRange(new object[] {
-            "127.0.0.1"});
-            this.comboBox2.Location = new System.Drawing.Point(164, 6);
-            this.comboBox2.Name = "comboBox2";
-            this.comboBox2.Size = new System.Drawing.Size(121, 23);
-            this.comboBox2.TabIndex = 8;
+            this.button8.Click += new System.EventHandler(this.buttonMigration_Click);
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(138, 9);
+            this.label9.Location = new System.Drawing.Point(117, 24);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(20, 15);
+            this.label9.Size = new System.Drawing.Size(50, 15);
             this.label9.TabIndex = 7;
-            this.label9.Text = "ip:";
+            this.label9.Text = "connstr:";
             // 
             // label3
             // 
@@ -465,7 +280,7 @@
             this.button3.TabIndex = 4;
             this.button3.Text = "Confirm";
             this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.button3.Click += new System.EventHandler(this.buttonhadle_confirm_Click);
             // 
             // label2
             // 
@@ -648,36 +463,36 @@
             this.label7.AutoSize = true;
             this.label7.Location = new System.Drawing.Point(53, 135);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(57, 15);
+            this.label7.Size = new System.Drawing.Size(34, 15);
             this.label7.TabIndex = 3;
-            this.label7.Text = "Password";
+            this.label7.Text = "Track";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Location = new System.Drawing.Point(53, 102);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(62, 15);
+            this.label6.Size = new System.Drawing.Size(44, 15);
             this.label6.TabIndex = 2;
-            this.label6.Text = "UserName";
+            this.label6.Text = "Line_id";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(53, 64);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(39, 15);
+            this.label5.Size = new System.Drawing.Size(79, 15);
             this.label5.TabIndex = 1;
-            this.label5.Text = "Server";
+            this.label5.Text = "MAX MR_VER";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(53, 31);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(92, 15);
+            this.label4.Size = new System.Drawing.Size(76, 15);
             this.label4.TabIndex = 0;
-            this.label4.Text = "Authentication：";
+            this.label4.Text = "MIN MR_VER";
             // 
             // menuStrip1
             // 
@@ -741,7 +556,6 @@
 
         private TabControl tabControl1;
         private TabPage tabPage1;
-        private TabPage tabPage2;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem menuToolStripMenuItem;
         private ToolStripMenuItem secondToolStripMenuItem;
@@ -749,10 +563,6 @@
         private Button button1;
         private TextBox textBox1;
         private Button button2;
-        private Label label1;
-        private ComboBox comboBox1;
-        private TextBox textBox2;
-        private Label label2;
         private TabPage tabPage3;
         private GroupBox groupBox1;
         private Button button7;
@@ -769,35 +579,24 @@
         private Label label6;
         private Label label5;
         private Label label4;
-        private Button button3;
-        private TextBox textBox5;
-        private Label label3;
-        private Label label9;
-        private ComboBox comboBox8;
-        private ComboBox comboBox7;
-        private ComboBox comboBox6;
-        private ComboBox comboBox2;
-        private Label label10;
-        private Label label11;
-        private Label label12;
-        private Label label13;
-        private Label label14;
-        private Label label15;
-        private ComboBox comboBox9;
-        private ComboBox comboBox10;
-        private ComboBox comboBox11;
-        private ComboBox comboBox12;
-        private Label label16;
-        private Button button8;
-        private Label label17;
-        private ComboBox comboBox13;
-        private Label label18;
-        private ComboBox comboBox14;
-        private Button button10;
-        private Button button9;
         private Button button14;
         private Button button11;
         private Button button13;
         private Button button12;
+        private TabPage tabPage2;
+        private ComboBox comboBoxFromTns;
+        private Button button_hadling_next;
+        private Button button_hadle_pre;
+        private Label label18;
+        private Button button8;
+        private Label label9;
+        private Label label3;
+        private TextBox textBox5;
+        private Button button3;
+        private Label label2;
+        private Label label1;
+        private ComboBox comboBox1;
+        private TextBox textBox2;
+        private ComboBox comboBoxToTns;
     }
 }

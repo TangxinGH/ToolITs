@@ -19,11 +19,13 @@ namespace  ToolITs.db
         public DbConnect()
         {
             _connection = new OracleConnection(Connection);
+            
         }
 
         public DbConnect(string connstr)
         {
             _connection = new OracleConnection(connstr);
+            
         }
 
         private void Begin()
@@ -111,6 +113,12 @@ namespace  ToolITs.db
             {
                 int impact = 0;
                 command.Connection = _connection;
+                    OracleGlobalization info = _connection.GetSessionInfo();
+              info.DateLanguage= "AMERICAN";
+              info.Language="ENGLISH";
+              info.DateFormat = "MM/DD/YYYY";
+              _connection.SetSessionInfo(info);
+
                 Begin();
                 foreach (string sql in SqlList)
                 {
@@ -139,22 +147,36 @@ namespace  ToolITs.db
             OracleCommand command = new OracleCommand();
             try
             {
-                string[] temp = sql.Split(";".ToCharArray());
+               // List<string> temp = new List<string>();
+               // temp.Add("ALTER SESSION SET NLS_DATE_LANGUAGE=AMERICAN " );
+               string[] temp =  sql.Split(";".ToCharArray());  // temp.Add(sql); //
                 command.Connection = _connection;
+    _connection.Open();
+    //   OracleGlobalization info = _connection.GetSessionInfo();
+    //           info.DateLanguage= "AMERICAN";
+    //           info.Language="ENGLISH";
+    //           info.DateFormat = "MM-DD-RR";
+            //   _connection.SetSessionInfo(info);
                 for (int i = 0; i < temp.Length; i++)
                 {
                     command.CommandText = temp[i];
                     OracleDataAdapter da = new OracleDataAdapter(command);
                     da.Fill(ds, i.ToString());
                 }
+                _connection.Close();
                 return ds;
             }
             catch (Exception ex)
             {
+               if ( _connection != null)
+               {
+                 _connection.Close();
+               }
                 throw ex;
             }
             finally
             {
+                _connection.Close();
                 command.Dispose();
             }
         }
