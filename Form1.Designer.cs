@@ -52,15 +52,13 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.button7 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.button4 = new System.Windows.Forms.Button();
+            this.buttonTest = new System.Windows.Forms.Button();
+            this.textBoxTrack = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.comboBox5 = new System.Windows.Forms.ComboBox();
-            this.comboBox4 = new System.Windows.Forms.ComboBox();
-            this.comboBox3 = new System.Windows.Forms.ComboBox();
+            this.textBoxLine_id = new System.Windows.Forms.TextBox();
+            this.comboBoxdb_tns = new System.Windows.Forms.ComboBox();
+            this.comboBoxMAXVER = new System.Windows.Forms.ComboBox();
+            this.comboBoxMINVER = new System.Windows.Forms.ComboBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -230,6 +228,7 @@
             this.comboBoxToTns.Name = "comboBoxToTns";
             this.comboBoxToTns.Size = new System.Drawing.Size(121, 23);
             this.comboBoxToTns.TabIndex = 26;
+            this.comboBoxToTns.SelectedIndexChanged += new System.EventHandler(this.comboBoxToTns_SelectedIndexChanged);
             // 
             // button8
             // 
@@ -337,15 +336,13 @@
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.button7);
-            this.groupBox1.Controls.Add(this.button5);
-            this.groupBox1.Controls.Add(this.textBox4);
-            this.groupBox1.Controls.Add(this.button4);
+            this.groupBox1.Controls.Add(this.buttonTest);
+            this.groupBox1.Controls.Add(this.textBoxTrack);
             this.groupBox1.Controls.Add(this.button6);
-            this.groupBox1.Controls.Add(this.textBox3);
-            this.groupBox1.Controls.Add(this.comboBox5);
-            this.groupBox1.Controls.Add(this.comboBox4);
-            this.groupBox1.Controls.Add(this.comboBox3);
+            this.groupBox1.Controls.Add(this.textBoxLine_id);
+            this.groupBox1.Controls.Add(this.comboBoxdb_tns);
+            this.groupBox1.Controls.Add(this.comboBoxMAXVER);
+            this.groupBox1.Controls.Add(this.comboBoxMINVER);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.label6);
@@ -361,43 +358,24 @@
             this.groupBox1.Text = "Login Info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // button7
+            // buttonTest
             // 
-            this.button7.Location = new System.Drawing.Point(271, 216);
-            this.button7.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(103, 36);
-            this.button7.TabIndex = 4;
-            this.button7.Text = "Login";
-            this.button7.UseVisualStyleBackColor = true;
+            this.buttonTest.Location = new System.Drawing.Point(271, 216);
+            this.buttonTest.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.buttonTest.Name = "buttonTest";
+            this.buttonTest.Size = new System.Drawing.Size(103, 36);
+            this.buttonTest.TabIndex = 4;
+            this.buttonTest.Text = "Test";
+            this.buttonTest.UseVisualStyleBackColor = true;
+            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
             // 
-            // button5
+            // textBoxTrack
             // 
-            this.button5.Location = new System.Drawing.Point(457, 241);
-            this.button5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(98, 32);
-            this.button5.TabIndex = 1;
-            this.button5.Text = "Server Stop";
-            this.button5.UseVisualStyleBackColor = true;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(157, 136);
-            this.textBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(219, 23);
-            this.textBox4.TabIndex = 9;
-            // 
-            // button4
-            // 
-            this.button4.Location = new System.Drawing.Point(457, 194);
-            this.button4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(98, 36);
-            this.button4.TabIndex = 0;
-            this.button4.Text = "Server Start";
-            this.button4.UseVisualStyleBackColor = true;
+            this.textBoxTrack.Location = new System.Drawing.Point(157, 136);
+            this.textBoxTrack.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxTrack.Name = "textBoxTrack";
+            this.textBoxTrack.Size = new System.Drawing.Size(219, 23);
+            this.textBoxTrack.TabIndex = 9;
             // 
             // button6
             // 
@@ -406,57 +384,53 @@
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(100, 35);
             this.button6.TabIndex = 3;
-            this.button6.Text = "Test";
+            this.button6.Text = "export";
             this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.buttonDCSMR_MRP_Export_Click);
             // 
-            // textBox3
+            // textBoxLine_id
             // 
-            this.textBox3.Location = new System.Drawing.Point(157, 103);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(219, 23);
-            this.textBox3.TabIndex = 8;
+            this.textBoxLine_id.Location = new System.Drawing.Point(157, 103);
+            this.textBoxLine_id.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBoxLine_id.Name = "textBoxLine_id";
+            this.textBoxLine_id.Size = new System.Drawing.Size(219, 23);
+            this.textBoxLine_id.TabIndex = 8;
             // 
-            // comboBox5
+            // comboBoxdb_tns
             // 
-            this.comboBox5.FormattingEnabled = true;
-            this.comboBox5.Location = new System.Drawing.Point(157, 172);
-            this.comboBox5.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox5.Name = "comboBox5";
-            this.comboBox5.Size = new System.Drawing.Size(218, 23);
-            this.comboBox5.TabIndex = 7;
+            this.comboBoxdb_tns.FormattingEnabled = true;
+            this.comboBoxdb_tns.Location = new System.Drawing.Point(157, 172);
+            this.comboBoxdb_tns.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxdb_tns.Name = "comboBoxdb_tns";
+            this.comboBoxdb_tns.Size = new System.Drawing.Size(218, 23);
+            this.comboBoxdb_tns.TabIndex = 7;
             // 
-            // comboBox4
+            // comboBoxMAXVER
             // 
-            this.comboBox4.FormattingEnabled = true;
-            this.comboBox4.Location = new System.Drawing.Point(157, 65);
-            this.comboBox4.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox4.Name = "comboBox4";
-            this.comboBox4.Size = new System.Drawing.Size(218, 23);
-            this.comboBox4.TabIndex = 6;
-            this.comboBox4.Text = "(local)";
+            this.comboBoxMAXVER.FormattingEnabled = true;
+            this.comboBoxMAXVER.Location = new System.Drawing.Point(157, 65);
+            this.comboBoxMAXVER.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxMAXVER.Name = "comboBoxMAXVER";
+            this.comboBoxMAXVER.Size = new System.Drawing.Size(218, 23);
+            this.comboBoxMAXVER.TabIndex = 6;
             // 
-            // comboBox3
+            // comboBoxMINVER
             // 
-            this.comboBox3.FormattingEnabled = true;
-            this.comboBox3.Items.AddRange(new object[] {
-            "Windows",
-            "SQL Server"});
-            this.comboBox3.Location = new System.Drawing.Point(157, 30);
-            this.comboBox3.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.comboBox3.Name = "comboBox3";
-            this.comboBox3.Size = new System.Drawing.Size(218, 23);
-            this.comboBox3.TabIndex = 5;
-            this.comboBox3.Text = "Windows";
+            this.comboBoxMINVER.FormattingEnabled = true;
+            this.comboBoxMINVER.Location = new System.Drawing.Point(157, 30);
+            this.comboBoxMINVER.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.comboBoxMINVER.Name = "comboBoxMINVER";
+            this.comboBoxMINVER.Size = new System.Drawing.Size(218, 23);
+            this.comboBoxMINVER.TabIndex = 5;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(53, 177);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(52, 15);
+            this.label8.Size = new System.Drawing.Size(43, 15);
             this.label8.TabIndex = 4;
-            this.label8.Text = "DBname";
+            this.label8.Text = "Db_tns";
             // 
             // label7
             // 
@@ -565,15 +539,13 @@
         private Button button2;
         private TabPage tabPage3;
         private GroupBox groupBox1;
-        private Button button7;
-        private Button button5;
-        private TextBox textBox4;
-        private Button button4;
+        private Button buttonTest;
+        private TextBox textBoxTrack;
         private Button button6;
-        private TextBox textBox3;
-        private ComboBox comboBox5;
-        private ComboBox comboBox4;
-        private ComboBox comboBox3;
+        private TextBox textBoxLine_id;
+        private ComboBox comboBoxdb_tns;
+        private ComboBox comboBoxMAXVER;
+        private ComboBox comboBoxMINVER;
         private Label label8;
         private Label label7;
         private Label label6;

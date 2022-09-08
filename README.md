@@ -20,3 +20,7 @@ dotnet add package Microsoft.Extensions.Configuration.Json --version 7.0.0-previ
 dotnet add package Microsoft.Extensions.Configuration.FileExtensions --version 7.0.0-preview.7.22375.6
 dotnet add package System.Configuration.ConfigurationManager --version 7.0.0-preview.7.22375.6
 dotnet add package Microsoft.Extensions.Configuration --version 7.0.0-preview.7.22375.6
+
+
+add region ctrl + k + s 
+ctrl + alt + enter full screen 

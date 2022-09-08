@@ -166,13 +166,13 @@ namespace  ToolITs.db
                 _connection.Close();
                 return ds;
             }
-            catch (Exception ex)
+            catch (Exception  )
             {
                if ( _connection != null)
                {
                  _connection.Close();
                }
-                throw ex;
+                throw  ;
             }
             finally
             {

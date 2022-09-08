@@ -6,6 +6,7 @@ using System.Collections;
 using System.Globalization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using OfficeOpenXml;
 
 namespace ToolITs
 {
@@ -28,13 +29,27 @@ namespace ToolITs
         private void initdropdownlist()
         {
 
+            #region From
             comboBoxFromTns.DataSource = tns;
             comboBoxFromTns.DisplayMember = "Name";
             comboBoxFromTns.ValueMember = "Connectionstring";
+            #endregion
 
-            comboBoxToTns.DataSource = tns;
+            #region TO
+            tns_oracle[] s = new tns_oracle[tns.Count];
+            tns.CopyTo(s);
+            comboBoxToTns.DataSource = s.ToList();
             comboBoxToTns.DisplayMember = "Name";
             comboBoxToTns.ValueMember = "Connectionstring";
+            #endregion
+
+            #region dcsmrp
+            tns_oracle[] t = new tns_oracle[tns.Count];
+            tns.CopyTo(t);
+            comboBoxdb_tns.DataSource = t.ToList();
+            comboBoxdb_tns.DisplayMember = "Name";
+            comboBoxdb_tns.ValueMember = "Connectionstring";
+            #endregion
         }
 
         private void initConfig()
@@ -132,8 +147,8 @@ namespace ToolITs
             }
             string inset_per = $" \r\nREM INSERTING into {comboBox1.Text} \r\nSET DEFINE OFF;\r\n";
 
-            string connstr = comboBoxFromTns.SelectedValue.ToString(); 
-                dbConnect = new DbConnect(connstr);
+            string connstr = comboBoxFromTns.SelectedValue.ToString();
+            dbConnect = new DbConnect(connstr);
 
             List<string> sql_collection = new List<string>();
             try
@@ -203,8 +218,8 @@ namespace ToolITs
             }
 
             string connstr = comboBoxFromTns.SelectedValue.ToString();
-                source = new DbConnect(connstr);
-            
+            source = new DbConnect(connstr);
+
 
             List<string> sql_collection = new List<string>();
             try
@@ -226,10 +241,10 @@ namespace ToolITs
                     if (sql_collection.Count > 0)
                     {
 
-                            string Target_connstr = comboBoxToTns.SelectedValue.ToString();
-                            DbConnect Target = new DbConnect(Target_connstr);
-                            Target.ExecuteBatchNonQuery(sql_collection);
-                       
+                        string Target_connstr = comboBoxToTns.SelectedValue.ToString();
+                        DbConnect Target = new DbConnect(Target_connstr);
+                        Target.ExecuteBatchNonQuery(sql_collection);
+
                     }
                 }
             }
@@ -254,9 +269,9 @@ namespace ToolITs
 
         private void button_hadle_pre_click(object sender, EventArgs e)
         {
-            if (history_sql.Count>0)
+            if (history_sql.Count > 0)
             {
-                if (history_current>1)
+                if (history_current > 1)
                 {
                     history_current -= 1;
                     textBox2.Text = history_sql[history_current].ToString();
@@ -299,6 +314,313 @@ namespace ToolITs
         private void comboBox15_SelectedIndexChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void comboBoxToTns_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonDCSMR_MRP_Export_Click(object sender, EventArgs e)
+        {
+            string Min_Ver = comboBoxMINVER.Text;
+            string Max_Ver = comboBoxMAXVER.Text;
+            string Line_Id = textBoxLine_id.Text;
+            string Track = textBoxTrack.Text;
+            string? tns = comboBoxdb_tns.SelectedValue.ToString();
+            DCS_MRP_Reoprt(Min_Ver, Max_Ver, Line_Id, Track, tns);
+        }
+
+        private void DCS_MRP_Reoprt(string min_Ver, string max_Ver, string line_Id, string track, string? tns)
+        {
+
+            string mr_ver_group = $"select distinct MR_VER from dcsmr_wo where(mr_ver between  '{min_Ver}' and  '{max_Ver}') ";
+
+            DbConnect Target = new DbConnect(tns);
+            DataSet dcs_mrp = Target.ExcuteQuery(mr_ver_group);
+
+            DataTable dt = new DataTable();
+            if (dcs_mrp != null && dcs_mrp.Tables[0].Rows.Count > 0)
+            {
+                foreach (DataRow item in dcs_mrp.Tables[0].Rows)
+                {
+                    string mr_ver = item["MR_VER"].ToString();
+                    #region sql calucation
+                    string sql = @$" 
+
+  WITH G
+        AS(SELECT PLANT,
+                     MIN(MAT) KEEP(DENSE_RANK FIRST ORDER BY WO ASC)-- 同plant, line_id, track, starttime ，wo ?, min mat_group
+                        MAT_GROUP,
+                     LINE_ID,
+                     TRACK,
+                     START_TIME
+                FROM(SELECT DISTINCT DD.PLANT,
+                                      DD.WO,
+                                      DD.MAT,
+                                      DD.BLU_PROCESS,
+                                      DD.LINE_ID,
+                                      DD.TRACK,
+                                      DD.MR_VER,
+                                      DD.START_TIME
+                        FROM DCSMR_MRP DD
+                       WHERE DD.CREATE_DATE >= TRUNC(SYSDATE) - 7)
+               WHERE MR_VER = '{mr_ver}'--(SELECT MAX(MR_VER) FROM DCSMR_MRP)
+            GROUP BY PLANT,
+                     LINE_ID,
+                     TRACK,
+                     START_TIME
+              HAVING COUNT(MAT) > 1),--?
+       L
+
+       AS(SELECT ROW_NUMBER()
+
+                  OVER(PARTITION BY PLANT, LINE_ID, TRACK
+
+                        ORDER BY START_TIME, WO ASC)
+
+                     RN,
+                  A.*
+             FROM(SELECT DISTINCT DD.MR_VER,
+                                   DD.PLANT,
+                                   DD.WO,
+                                   DD.MAT,
+                                   NVL(G.MAT_GROUP, DD.MAT) MAT_GROUP,
+                                   DD.BLU_PROCESS,
+                                   DD.LINE_ID,
+                                   DD.TRACK,
+                                   DD.START_TIME,
+                                   DD.S_TRACK_GI_QTY,
+                                   DD.S_TRACK_PASS_QTY,
+                                   DD.S_TRACK_OUT_QTY,
+                                   DD.S_TRACK_IN_QTY,
+                                   DD.SAFE_QTY
+
+                     FROM DCSMR_MRP DD
+
+                          LEFT JOIN G
+
+                             ON     DD.PLANT = G.PLANT
+
+                                AND DD.LINE_ID = G.LINE_ID
+
+                                AND DD.TRACK = G.TRACK
+
+                                AND DD.START_TIME = G.START_TIME
+
+                    WHERE     DD.CREATE_DATE >= TRUNC(SYSDATE) - 7
+
+                          AND DD.MR_VER = '{mr_ver}'
+                                --(SELECT MAX(MR_VER) FROM DCSMR_MRP)
+                                 ) A),
+        SS(RN,
+            MR_VER,
+            PLANT,
+            WO,
+            MAT,
+            MAT_GROUP,
+            BLU_PROCESS,
+            LINE_ID,
+            TRACK,
+            START_TIME,
+            S_TRACK_GI_QTY,
+            S_TRACK_PASS_QTY,
+            S_TRACK_OUT_QTY,
+            S_TRACK_IN_QTY,
+            SAFE_QTY,
+            FLAG)
+        AS(SELECT L.*, 'Y' FLAG
+              FROM L
+             WHERE RN = 1
+            UNION ALL
+            SELECT L.RN,
+                   L.MR_VER,
+                   L.PLANT,
+                   L.WO,
+                   L.MAT,
+                   L.MAT_GROUP,
+                   L.BLU_PROCESS,
+                   L.LINE_ID,
+                   L.TRACK,
+                   L.START_TIME,
+                   L.S_TRACK_GI_QTY,
+                   L.S_TRACK_PASS_QTY,
+                   L.S_TRACK_OUT_QTY,
+                   L.S_TRACK_IN_QTY,
+                   L.SAFE_QTY,
+                   CASE
+                      WHEN    L.MAT_GROUP = SS.MAT_GROUP
+                           OR L.START_TIME = SS.START_TIME
+                      THEN
+                         'Y'
+                      ELSE
+                         'N'
+                   END
+                      FLAG
+              FROM SS
+                   INNER JOIN L
+                      ON     SS.RN + 1 = L.RN
+                         AND SS.TRACK = L.TRACK
+                         AND SS.LINE_ID = L.LINE_ID
+                         AND SS.PLANT = L.PLANT),
+  DCSMR_MRP_V as (SELECT RN,
+          MR_VER,
+          PLANT,
+          WO,
+          MAT,
+          MAT_GROUP,
+          BLU_PROCESS,
+          LINE_ID,
+          TRACK,
+          START_TIME,
+          S_TRACK_GI_QTY,
+          S_TRACK_PASS_QTY,
+          S_TRACK_OUT_QTY,
+          S_TRACK_IN_QTY,
+          SAFE_QTY,
+          FLAG
+     FROM SS)
+ 
+  SELECT '{mr_ver}' MR_VER, A.BLU_PROCESS,A.LINE_ID,A.TRACK,A.A_TRACK_GI_QTY,A.A_TRACK_OUT_QTY,A.A_TRACK_IN_QTY,A.SAFE_QTY, C.A_TRACK_PASS_QTY
+ ,A_TRACK_GI_QTY 軌道總已發量, A_TRACK_PASS_QTY 軌道總耗用量 ,SAFE_QTY 軌道安全庫存,
+A_TRACK_IN_QTY 軌道轉入量,   A_TRACK_OUT_QTY 軌道轉出量
+, A.A_TRACK_GI_QTY + A.A_TRACK_IN_QTY - C.A_TRACK_PASS_QTY - A.A_TRACK_OUT_QTY 線上庫存
+                              FROM(SELECT LINE_ID,
+                                             TRACK,
+                                             BLU_PROCESS,
+                                             SUM(S_TRACK_GI_QTY) A_TRACK_GI_QTY,
+                                             SUM(S_TRACK_OUT_QTY) A_TRACK_OUT_QTY,
+                                             SUM(S_TRACK_IN_QTY) A_TRACK_IN_QTY,
+                                             MAX(SAFE_QTY) SAFE_QTY
+                                        FROM DCSMR_MRP_V
+                                       WHERE FLAG = 'Y'
+                                    GROUP BY LINE_ID, TRACK, BLU_PROCESS) A,                            			
+                                   (SELECT B.LINE_ID, B.TRACK, SUM(B.S_TRACK_PASS_QTY) A_TRACK_PASS_QTY
+                                        FROM(SELECT DISTINCT LINE_ID,
+                                                                TRACK,
+                                                                WO,
+                                                                S_TRACK_PASS_QTY
+                                                  FROM DCSMR_MRP_V
+                                                 WHERE FLAG = 'Y'
+                                              GROUP BY LINE_ID,
+                                                       TRACK,
+                                                       WO,
+                                                       S_TRACK_PASS_QTY) B
+                                    GROUP BY B.LINE_ID, B.TRACK) C
+                             WHERE     A.LINE_ID = C.LINE_ID
+                                   AND A.TRACK = C.TRACK
+                                   and a.track = '{track}'
+                                   and A.LINE_ID = '{line_Id}'
+--                                   AND A.A_TRACK_GI_QTY + A.A_TRACK_IN_QTY - C.A_TRACK_PASS_QTY - A.A_TRACK_OUT_QTY < A.SAFE_QTY
+                                   ORDER BY A.LINE_ID,A.TRACK
+";
+                    #endregion
+                    DataSet ds = Target.ExcuteQuery(sql);
+                    DataTable temp = ds.Tables[0];
+                    // append table to result
+                    dt.Merge(temp);
+
+                }
+
+                SaveToExeclFile("ToolITs.xlsx", dt);
+                string currentDirectory = Environment.CurrentDirectory;
+                //Console.WriteLine($"当前目录{currentDirectory}");
+                System.Diagnostics.Process.Start("explorer.exe ", Application.StartupPath);
+            }
+            else
+            {
+                MessageBox.Show("no mr_ver");
+            }
+
+
+        }
+      private  void SaveToExeclFile(string fileName,DataTable dataTable)
+        {
+            try
+            {
+                //ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("sheetest1");//创建worksheet
+                FileInfo fileInfo = new FileInfo(fileName);
+                if (fileInfo.Exists)
+                {
+                    fileInfo.Delete();//先删除文件，以免增加sheet时 重名错误
+                }
+                using (ExcelPackage package = new ExcelPackage(fileInfo))
+                {
+
+                    ExcelWorksheet worksheet = package.Workbook.Worksheets.Add("sheet1");
+                    worksheet.Cells["A1"].LoadFromDataTable(dataTable, true);
+                    package.Save();
+
+                    //// 文件头
+                    //worksheet.InsertRow(1/*开始插入的位置*/, 1/*行数*/);
+                    //worksheet.InsertColumn(1/*开始插入的位置*/, 3/*列数*/);
+                    //worksheet.
+                    //worksheet.Column(1).Width = 20;
+                    //worksheet.Cells[1, 1].Value = "sn";
+
+                    //worksheet.Column(2).Width = 20;
+                    //worksheet.Cells[1, 2].Value = "iccid";
+
+                    //worksheet.Column(3).Width = 20;
+                    //worksheet.Cells[1, 3].Value = "name";
+
+                    try
+                    {
+                        package.Save();//保存excel
+                    }
+                    catch (System.InvalidOperationException)
+                    {
+                        MessageBox.Show("文件已被打开,请关闭后点击[确定]");
+                        bool fileIsNotClosed = true;
+                        while (fileIsNotClosed)
+                        {
+                            try
+                            {
+                                package.Save();//保存excel
+                            }
+                            catch (System.InvalidOperationException)
+                            {
+                                MessageBox.Show("文件已被打开,请关闭后点击[确定]");
+                                continue;
+                            }
+                            fileIsNotClosed = false;
+                        }
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show($"SaveToExeclFile: {e.ToString()}");
+            }
+        }
+
+        private void buttonTest_Click(object sender, EventArgs e)
+        {
+            //string currentDirectory = Environment.CurrentDirectory;
+            //Console.WriteLine($"当前目录{currentDirectory}");
+            //System.Diagnostics.Process.Start("explorer.exe ", Application.StartupPath);
+
+            //DataTable dataTable0 = new DataTable();
+
+            //DataTable dataTable = new DataTable();
+            //dataTable.Columns.Add("TEST");
+
+            //dataTable.Rows.Add("s");
+
+            //DataTable dataTable2 = new DataTable();
+            //dataTable2.Columns.Add("TEST");
+
+            //dataTable2.Rows.Add("ds");
+
+            //dataTable0.Merge(dataTable);
+            string? tns = comboBoxdb_tns.SelectedValue.ToString();
+            DbConnect Target = new DbConnect(tns);
+            DataSet dcs_mrp = Target.ExcuteQuery("SELECT * from CUSTOMERS WHERE CUSTOMER_ID < 10 ");
+            DataSet dcs_mrp2= Target.ExcuteQuery("SELECT * from CUSTOMERS WHERE CUSTOMER_ID > 10 ");
+
+            dcs_mrp.Merge(dcs_mrp2);
+            SaveToExeclFile("test.xlsx", dcs_mrp.Tables[0]);
+            System.Diagnostics.Process.Start("explorer.exe ", Application.StartupPath);
         }
     }
 }
