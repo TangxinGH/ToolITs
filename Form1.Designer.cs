@@ -52,6 +52,7 @@
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.OpenFileAfterExport = new System.Windows.Forms.CheckBox();
             this.buttonTest = new System.Windows.Forms.Button();
             this.textBoxTrack = new System.Windows.Forms.TextBox();
             this.button6 = new System.Windows.Forms.Button();
@@ -336,6 +337,7 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.OpenFileAfterExport);
             this.groupBox1.Controls.Add(this.buttonTest);
             this.groupBox1.Controls.Add(this.textBoxTrack);
             this.groupBox1.Controls.Add(this.button6);
@@ -355,8 +357,19 @@
             this.groupBox1.Size = new System.Drawing.Size(704, 343);
             this.groupBox1.TabIndex = 3;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Login Info";
+            this.groupBox1.Text = "Args Info";
             this.groupBox1.Enter += new System.EventHandler(this.groupBox1_Enter);
+            // 
+            // OpenFileAfterExport
+            // 
+            this.OpenFileAfterExport.AutoSize = true;
+            this.OpenFileAfterExport.Location = new System.Drawing.Point(424, 227);
+            this.OpenFileAfterExport.Name = "OpenFileAfterExport";
+            this.OpenFileAfterExport.Size = new System.Drawing.Size(133, 19);
+            this.OpenFileAfterExport.TabIndex = 10;
+            this.OpenFileAfterExport.Text = "OpenFileAfterExport";
+            this.OpenFileAfterExport.UseVisualStyleBackColor = true;
+            this.OpenFileAfterExport.CheckedChanged += new System.EventHandler(this.OpenFileAfterExport_CheckedChanged);
             // 
             // buttonTest
             // 
@@ -570,5 +583,6 @@
         private ComboBox comboBox1;
         private TextBox textBox2;
         private ComboBox comboBoxToTns;
+        private CheckBox OpenFileAfterExport;
     }
 }

@@ -50,6 +50,10 @@ namespace ToolITs
             comboBoxdb_tns.DisplayMember = "Name";
             comboBoxdb_tns.ValueMember = "Connectionstring";
             #endregion
+
+            #region OpenFileAfterExport Checked
+            OpenFileAfterExport.Checked = (bool)Settings1.Default["OpenFile"];
+            #endregion
         }
 
         private void initConfig()
@@ -68,6 +72,7 @@ namespace ToolITs
             var serviceProvider = serviceCollection.BuildServiceProvider();
             service = serviceProvider.GetRequiredService<MyService>();
             tns = service.GetTns();
+
 
             #endregion
         }
@@ -521,11 +526,12 @@ A_TRACK_IN_QTY 軌道轉入量,   A_TRACK_OUT_QTY 軌道轉出量
                     dt.Merge(temp);
 
                 }
-
-                SaveToExeclFile("ToolITs.xlsx", dt);
-                string currentDirectory = Environment.CurrentDirectory;
+                string filename = "ToolITs.xlsx";
+                SaveToExeclFile(filename, dt);
+                //string currentDirectory = Environment.CurrentDirectory;
                 //Console.WriteLine($"当前目录{currentDirectory}");
-                System.Diagnostics.Process.Start("explorer.exe ", Application.StartupPath);
+                string currentDirectory = OpenFileAfterExport.Checked ?  Path.Combine(Application.StartupPath, filename) : Application.StartupPath ;
+                System.Diagnostics.Process.Start("explorer.exe ", currentDirectory);
             }
             else
             {
@@ -620,7 +626,14 @@ A_TRACK_IN_QTY 軌道轉入量,   A_TRACK_OUT_QTY 軌道轉出量
 
             dcs_mrp.Merge(dcs_mrp2);
             SaveToExeclFile("test.xlsx", dcs_mrp.Tables[0]);
-            System.Diagnostics.Process.Start("explorer.exe ", Application.StartupPath);
+            string currentDirectory = OpenFileAfterExport.Checked ? Path.Combine(Application.StartupPath, "test.xlsx") : Application.StartupPath;
+            System.Diagnostics.Process.Start("explorer.exe ", currentDirectory);
+        }
+
+        private void OpenFileAfterExport_CheckedChanged(object sender, EventArgs e)
+        {
+            ToolITs.Settings1.Default["OpenFile"] = OpenFileAfterExport.Checked;
+            ToolITs.Settings1.Default.Save(); // Saves settings in application configuration file
         }
     }
 }
