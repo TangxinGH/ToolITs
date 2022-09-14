@@ -527,7 +527,7 @@ A_TRACK_IN_QTY 軌道轉入量,   A_TRACK_OUT_QTY 軌道轉出量
 
                 }
                 string filename = "ToolITs.xlsx";
-                SaveToExeclFile(filename, dt);
+                SaveToExeclFile(Path.Combine(Application.StartupPath, filename), dt);
                 //string currentDirectory = Environment.CurrentDirectory;
                 //Console.WriteLine($"当前目录{currentDirectory}");
                 string currentDirectory = OpenFileAfterExport.Checked ?  Path.Combine(Application.StartupPath, filename) : Application.StartupPath ;

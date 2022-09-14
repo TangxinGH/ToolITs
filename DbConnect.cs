@@ -198,9 +198,9 @@ namespace  ToolITs.db
 
                 return ds;
             }
-            catch (Exception ex)
+            catch (Exception  )
             {
-                throw ex;
+                throw  ;
             }
             finally
             {
