@@ -59,20 +59,9 @@ namespace ToolITs
         private void initConfig()
         {
             #region config
-            // 1. crete a service collection for DI
-            var serviceCollection = new ServiceCollection();
-            // 2. Build a configuration 
-            IConfiguration configuration;
-            configuration = new ConfigurationBuilder().SetBasePath(Directory.GetParent(AppContext.BaseDirectory).FullName).AddJsonFile("appsettings.json").Build(); ;
-            //3. Add the configuration to the service collection 
-            serviceCollection.AddSingleton(configuration);
-            serviceCollection.AddSingleton<MyService>();
-
+            service = ServiceProviderFactory.ServiceProvider.GetRequiredService<MyService>();
             // start service
-            var serviceProvider = serviceCollection.BuildServiceProvider();
-            service = serviceProvider.GetRequiredService<MyService>();
             tns = service.GetTns();
-
 
             #endregion
         }

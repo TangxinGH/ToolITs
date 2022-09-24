@@ -24,3 +24,5 @@ dotnet add package Microsoft.Extensions.Configuration --version 7.0.0-preview.7.
 
 add region ctrl + k + s 
 ctrl + alt + enter full screen 
+
+Get-Help about_EntityFrameworkCore
