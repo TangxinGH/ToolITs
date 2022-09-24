@@ -7,8 +7,13 @@
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
     <PublishSingleFile>true</PublishSingleFile>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
     <!-- <InvariantGlobalization>true</InvariantGlobalization> -->
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="favicon.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="4.5.3.3" />
